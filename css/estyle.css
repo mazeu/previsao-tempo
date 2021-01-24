@@ -1,0 +1,22 @@
+
+.principal {
+    margin: 0;
+    padding:0;
+}
+
+.campoSelecao {
+    max-width:100%;
+}
+
+.form-control{
+    min-width:200px;
+   padding: 0%;
+   margin: 0;
+}
+.cidadeSalva {
+    width: 400px;
+}
+
+.button {
+    margin: 0 auto;
+}
