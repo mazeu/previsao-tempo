@@ -11,13 +11,16 @@ function pesquisaCidade(cidade){
     
     console.log(cidade);
     cidade = encodeURIComponent(cidade);
-    let url = 'https://api.hgbrasil.com/weather?format=json-cors&key=a41a8818&city_name='+cidade;
+    
+    let url = 'https://api.hgbrasil.com/weather?format=json-cors&key=c6c51bec&city_name='+cidade;
     
     let xmlHttp = new XMLHttpRequest()
     xmlHttp.open('GET', url)
 
     xmlHttp.onreadystatechange = () =>{
         if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+            //a resposta ja é um json
+           
             let dadosJSONText = xmlHttp.responseText
             let  dadosJSONObj = JSON.parse(dadosJSONText)
 
@@ -30,12 +33,59 @@ function pesquisaCidade(cidade){
             document.getElementById('humidity').innerHTML = `${dadosJSONObj.results.humidity} %`
             
             document.getElementById('wind_speedy').innerHTML = dadosJSONObj.results.wind_speedy
-
+            
             console.log(dadosJSONObj.results.city, dadosJSONObj.results.wind_speedy);
+            
         }
     }
     xmlHttp.send()
 }
+
+function Salvar() {
+
+    var cidade = document.getElementById('city');
+    
+    if(cidade == null){
+        localStorage.setItem("cidades", "[]");
+        cidade = [];
+    }
+
+    var registro = {
+        Cidade: dadosJSONObj.results.city,
+        Data: dadosJSONObj.results.date,
+        Temperatura: dadosJSONObj.results.temp,
+        Umidade: dadosJSONObj.results.humidity,
+        Vento: dadosJSONObj.results.wind_speedy
+    }
+
+    cidade.push(registro);
+
+    localStorage.setItem("cidades", JSON.stringify(cidade));
+     
+}
+/*
+function Salvar(){
+ 
+    const sampleJSON = JSON.stringify({
+  weather: "good",
+  hour: "2h",
+  city: "new york",
+  state: "new york"
+});
+ 
+// É assim que se adiciona um JSON ao localStorage
+// No lugar de "sampleJSON" adicione o resultado de sua requisição
+// Se a requisição já for um objeto, então remove o JSON.parse
+Object.entries(JSON.parse(sampleJSON)).forEach((dataFromWeather) => {
+  const [key, value] = dataFromWeather;
+ 
+  // Define o localStorage
+  localStorage.setItem(key, value);
+});
+ 
+// Obter dado do JSON pelo locaStorage
+localStorage.getItem("city"); // new york
+
 /*
 //encodeURIComponent() codificar difitação
 
